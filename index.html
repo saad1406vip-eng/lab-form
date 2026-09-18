@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab-Form | Sabt Alalaya General Hospital</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Tahoma', 'Arial', sans-serif; background: #eef2f5; padding: 20px; margin: 0; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; margin: 0 0 20px 0; }
+        .controls { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        @media (min-width: 768px) { .controls { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 480px) { .controls { grid-template-columns: repeat(2, 1fr); gap: 8px; } .controls label { font-size: 12px; } .controls input, .controls select { padding: 6px; font-size: 13px; } }
+        .controls label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #2c3e50; }
+        .controls input, .controls select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; }
+        .generate-btn-wrapper { grid-column: 1 / -1; }
+        .btn { padding: 12px 20px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 16px; font-weight: bold; width: 100%; transition: 0.3s; }
+        .btn:hover { background: #0056b3; }
+        .btn-print { background: #28a745; margin-top: 20px; font-size: 18px; }
+        .btn-print:hover { background: #218838; }
+        .form-page { margin-bottom: 40px; border: 2px solid #000; padding: 15px; background: white; }
+        .form-header { display: flex; align-items: center; justify-content: center; min-height: 95px; margin-bottom: 15px; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; position: relative; }
+        .logo-img { display: none; height: 85px; width: auto; object-fit: contain; position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+        .header-text { text-align: center; flex: 1; padding: 0 110px; }
+        .header-text h3 { margin: 0; font-size: 17px; color: #2c3e50; }
+        .header-text h4 { margin: 4px 0; font-size: 13px; color: #34495e; font-weight: normal; }
+        .header-text p { margin: 6px 0 0 0; font-size: 14px; font-weight: bold; color: #000; }
+        .form-info { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 10px; font-weight: bold; font-size: 13px; gap: 10px; padding: 5px 0; border-bottom: 1px solid #ccc; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 11px; }
+        th, td { border: 1px solid #000; padding: 4px; text-align: center; }
+        th { background-color: #d1d8e0; font-weight: bold; }
+        .empty-row { background-color: #f9f9f9; }
+        .signatures { display: flex; justify-content: space-between; margin-top: 30px; font-weight: bold; font-size: 13px; }
+        .signatures div { border-top: 1px solid #000; width: 45%; text-align: center; padding-top: 5px; }
+        .error-msg { background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px; display: none; }
+        @media print {
+            body { background: white; padding: 0; margin: 0; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .controls { display: none; }
+            .btn { display: none; }
+            h2 { display: none; }
+            .error-msg { display: none; }
+            table { font-size: 10px; }
+            .form-info { font-size: 12px; }
+            .form-page { page-break-after: always; border: 2px solid #000; margin: 0; padding: 10px; }
+            .logo-img { display: block !important; height: 75px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .form-header { min-height: 85px; }
+        }
+        @page { size: A4; margin: 8mm; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🧪 Lab-Form - Sabt Alalaya General Hospital</h2>
+    <div id="errorMsg" class="error-msg"></div>
+
+    <div class="controls">
+        <div>
+            <label>نوع الفورم:</label>
+            <select id="formType">
+                <option value="temperature">Temperature Log (درجة الحرارة)</option>
+                <option value="stock">Stock & Expiration (المخزون والصلاحية)</option>
+            </select>
+        </div>
+        <div>
+            <label>القسم (Section):</label>
+            <select id="section">
+                <option value="Chemistry">Chemistry (كيمياء)</option>
+                <option value="Hematology">Hematology (هيماتولوجي)</option>
+                <option value="Serology">Serology (مصليات)</option>
+                <option value="Blood Bank">Blood Bank (بنك الدم)</option>
+                <option value="Microbiology">Microbiology (أحياء دقيقة)</option>
+            </select>
+        </div>
+        <div>
+            <label>رقم الثلاجة / الجهاز:</label>
+            <input type="text" id="fridgeNo" value="Ref-1">
+        </div>
+        <div>
+            <label>نطاق درجة الحرارة:</label>
+            <select id="rangeType">
+                <option value="2-8">2°C to 8°C (عادي)</option>
+                <option value="-20">-20°C (تجمد)</option>
+                <option value="-80">-80°C (عميق)</option>
+            </select>
+        </div>
+        <div>
+            <label>من شهر (بداية):</label>
+            <input type="month" id="startMonth" value="2026-01">
+        </div>
+        <div>
+            <label>إلى شهر (نهاية):</label>
+            <input type="month" id="endMonth" value="2026-09">
+        </div>
+        <div>
+            <label>تاريخ التفتيش (Cut-off):</label>
+            <input type="date" id="cutOffDate" value="2026-09-17">
+        </div>
+        <div class="generate-btn-wrapper" style="display: flex; align-items: flex-end;">
+            <button class="btn" onclick="generateForms()">🔄 توليد الفورمات</button>
+        </div>
+    </div>
+
+    <div id="formsContainer"></div>
+    <button class="btn btn-print" id="printBtn" onclick="window.print()" style="display:none;">🖨️ طباعة / حفظ PDF</button>
+</div>
+
+<script>
+    const techs = ['M. DHAKIL', 'HOSSAM S.', 'MANSOUR M.', 'M. SALAN', 'MISFER A.', 'M. NASSER', 'FAHAD ABD', 'M. SAAD', 'M. SALEH', 'SAAD EID', 'SULTAN M.', 'NAIF ABD', 'A/AZIZ R.', 'M. KHALAF', 'NAIF MOHD'];
+    const materialsDB = {
+        'Chemistry': ['Glucose', 'BUN', 'Creatinine', 'Cholesterol', 'Triglycerides', 'ALT', 'AST', 'ALP', 'Total Bilirubin', 'Direct Bilirubin', 'Total Protein', 'Albumin', 'Calcium', 'Phosphorus', 'Uric Acid', 'Amylase', 'CK', 'CK-MB', 'LDH', 'Sodium', 'Potassium', 'Chloride', 'HDL', 'LDL', 'Iron', 'TIBC', 'Ferritin', 'CRP', 'HbA1c'],
+        'Hematology': ['Anti-A', 'Anti-B', 'Anti-D', 'D-Dimer Test', 'Control', 'Diluent', 'Lyse', 'Cleaner', 'Retic Reagent', 'Calibrator', 'QC Normal', 'QC Abnormal', 'PT Reagent', 'APTT Reagent', 'Fibrinogen', 'Thrombin Time'],
+        'Serology': ['HBsAg', 'Anti-HBs', 'Anti-HCV', 'Anti-HIV', 'VDRL/RPR', 'Widal Test', 'Brucella Test', 'Toxoplasma IgG', 'Toxoplasma IgM', 'Rubella IgG', 'Rubella IgM', 'CMV IgG', 'CMV IgM', 'Helicobacter Pylori'],
+        'Blood Bank': ['Anti-A', 'Anti-B', 'Anti-D', 'Anti-A1', 'Anti-Human Globulin', 'LISS', 'Normal Saline', 'AHG Reagent', 'Antibody Screening Cells', 'Panel Cells', 'Quality Control Cells'],
+        'Microbiology': ['Blood Agar', 'MacConkey Agar', 'Chocolate Agar', 'Mueller-Hinton Agar', 'XLD Agar', 'SS Agar', 'Gram Stain', 'Ziehl-Neelsen Stain', 'Coagulase Plasma', 'Oxidase Reagent', 'Catalase Reagent']
+    };
+    function getRandomTemp(min, max) { return (Math.random() * (max - min) + min).toFixed(1); }
+    function getRandomTech() { return techs[Math.floor(Math.random() * techs.length)]; }
+    function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function getRandomExpiry(baseDate) {
+        const monthsToAdd = getRandomInt(2, 6);
+        let newDate = new Date(baseDate);
+        newDate.setMonth(newDate.getMonth() + monthsToAdd);
+        return `${String(newDate.getMonth() + 1).padStart(2, '0')}-${newDate.getFullYear()}`;
+    }
+    function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = '⚠️ ' + msg; el.style.display = 'block'; }
+    function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+
+    function generateTemperatureForm(section, fridgeNo, rangeMin, rangeMax, year, month, cutOffDateStr) {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const daysInMonth = new Date(year, month, 0).getDate();
+        const cutOffDate = new Date(cutOffDateStr);
+        const monthStart = new Date(year, month - 1, 1);
+        if (monthStart > cutOffDate) return '';
+        let html = `<div class="form-page"><div class="form-header"><img src="aseer-logo.svg" alt="Aseer" class="logo-img"><div class="header-text"><h3>SABT ALALAYA GENERAL HOSPITAL</h3><h4>LABORATORY AND PATHOLOGY DEPARTMENT</h4><p>Temperature Log Sheet - ${monthNames[month - 1]} ${year}</p></div></div><div class="form-info"><span>SECTION: ${section}</span><span>MONTH: ${month}</span><span>YEAR: ${year}</span><span>REFRIGERATOR NO: ${fridgeNo}</span><span>Acceptable range: ${rangeMin}°C to ${rangeMax}°C</span></div><table><thead><tr><th rowspan="2">Date</th><th colspan="2">08:00</th><th colspan="2">12:00</th><th colspan="2">16:00</th><th colspan="2">20:00</th><th colspan="2">24:00</th><th colspan="2">04:00</th><th rowspan="2">Cleaning/<br>Alarm check</th></tr><tr><th>Temp</th><th>Tech</th><th>Temp</th><th>Tech</th><th>Temp</th><th>Tech</th><th>Temp</th><th>Tech</th><th>Temp</th><th>Tech</th><th>Temp</th><th>Tech</th></tr></thead><tbody>`;
+        for (let d = 1; d <= daysInMonth; d++) {
+            const currentDate = new Date(year, month - 1, d);
+            if (currentDate > cutOffDate) {
+                html += `<tr class="empty-row"><td>${d}</td>`;
+                for (let k = 0; k < 13; k++) html += `<td></td>`;
+                html += `</tr>`;
+            } else {
+                html += `<tr><td>${d}</td>`;
+                for (let j = 0; j < 6; j++) {
+                    html += `<td>${getRandomTemp(rangeMin + 0.1, rangeMax - 0.1)}</td><td>${getRandomTech()}</td>`;
+                }
+                html += `<td>OK</td></tr>`;
+            }
+        }
+        html += `</tbody></table><div class="signatures"><div>Supervisor Review</div><div>QC Review</div></div></div>`;
+        return html;
+    }
+
+    function generateStockForm(section, deviceNo, year, month) {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const materials = materialsDB[section] || [];
+        const today = new Date();
+        let html = `<div class="form-page"><div class="form-header"><img src="aseer-logo.svg" alt="Aseer" class="logo-img"><div class="header-text"><h3>SABT ALALAYA GENERAL HOSPITAL</h3><h4>LABORATORY AND PATHOLOGY DEPARTMENT</h4><p>Available Stock and Expiration Date - ${monthNames[month - 1]} ${year}</p></div></div><div class="form-info"><span>DEVICE: ${deviceNo}</span><span>MONTH: ${month}</span><span>SECTION: ${section}</span></div><table><thead><tr><th>NO.</th><th>ITEMS</th><th>EXP.</th><th>AVAILABILITY</th><th>NO.</th><th>ITEMS</th><th>EXP.</th><th>AVAILABILITY</th></tr></thead><tbody>`;
+        const rowsNeeded = Math.max(25, materials.length);
+        for (let i = 0; i < rowsNeeded; i++) {
+            let leftItem = materials[i] || '';
+            let rightItem = materials[i + rowsNeeded] || '';
+            html += `<tr><td>${i + 1}</td><td style="text-align:right; padding-right:5px;">${leftItem}</td><td>${leftItem ? getRandomExpiry(today) : ''}</td><td>${leftItem ? getRandomInt(1, 5) : ''}</td><td>${i + 1 + rowsNeeded}</td><td style="text-align:right; padding-right:5px;">${rightItem}</td><td>${rightItem ? getRandomExpiry(today) : ''}</td><td>${rightItem ? getRandomInt(1, 5) : ''}</td></tr>`;
+        }
+        html += `</tbody></table><div class="signatures"><div>Supervisor Review</div><div>Section Head</div></div></div>`;
+        return html;
+    }
+
+    function generateForms() {
+        hideError();
+        try {
+            const formType = document.getElementById('formType').value;
+            const section = document.getElementById('section').value;
+            const deviceNo = document.getElementById('fridgeNo').value || 'Ref-1';
+            const rangeType = document.getElementById('rangeType').value;
+            let startMonth = document.getElementById('startMonth').value;
+            let endMonth = document.getElementById('endMonth').value;
+            let cutOffDate = document.getElementById('cutOffDate').value;
+
+            if (!startMonth) { startMonth = new Date().toISOString().slice(0, 7); document.getElementById('startMonth').value = startMonth; }
+            if (!endMonth) { endMonth = startMonth; document.getElementById('endMonth').value = endMonth; }
+            if (!cutOffDate) { cutOffDate = new Date().toISOString().slice(0, 10); document.getElementById('cutOffDate').value = cutOffDate; }
+
+            let rangeMin = 2, rangeMax = 8;
+            if (rangeType === '-20') { rangeMin = -20.5; rangeMax = -19.5; }
+            if (rangeType === '-80') { rangeMin = -80.5; rangeMax = -79.5; }
+
+            const startParts = startMonth.split('-');
+            const endParts = endMonth.split('-');
+            if (startParts.length < 2 || endParts.length < 2) { showError('صيغة التاريخ غير صحيحة.'); return; }
+
+            const startYear = parseInt(startParts[0]), startMon = parseInt(startParts[1]);
+            const endYear = parseInt(endParts[0]), endMon = parseInt(endParts[1]);
+            let container = document.getElementById('formsContainer');
+            container.innerHTML = '';
+            let currentYear = startYear, currentMon = startMon;
+            while (currentYear < endYear || (currentYear === endYear && currentMon <= endMon)) {
+                let formHtml = '';
+                if (formType === 'temperature') formHtml = generateTemperatureForm(section, deviceNo, rangeMin, rangeMax, currentYear, currentMon, cutOffDate);
+                else if (formType === 'stock') formHtml = generateStockForm(section, deviceNo, currentYear, currentMon);
+                if (formHtml) container.innerHTML += formHtml;
+                currentMon++;
+                if (currentMon > 12) { currentMon = 1; currentYear++; }
+            }
+            document.getElementById('printBtn').style.display = 'block';
+            container.scrollIntoView({ behavior: 'smooth' });
+        } catch (e) {
+            showError('حدث خطأ: ' + e.message);
+            console.error(e);
+        }
+    }
+
+    window.onload = function () { generateForms(); };
+</script>
+
+</body>
+</html>
