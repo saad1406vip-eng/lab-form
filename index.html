@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة نماذج المختبر | Lab Forms Library</title>
+    <style>
+        :root {
+            --primary: #004b87;
+            --secondary: #f4f7f6;
+            --text: #333;
+            --border: #e0e0e0;
+        }
+        body {
+            font-family: 'Tahoma', Arial, sans-serif;
+            background-color: var(--secondary);
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+        }
+        
+        /* الترويسة العلوية */
+        header {
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--primary);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px 50px 15px;
+        }
+
+        /* شبكة الأقسام */
+        .section-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border-right: 5px solid var(--primary);
+        }
+        .section-title {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        /* البطاقات (النماذج) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .form-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+            background: #fff;
+        }
+        .form-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+        }
+        .form-title {
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            line-height: 1.4;
+        }
+        .btn {
+            padding: 10px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.2s;
+            display: block;
+        }
+        .btn:hover {
+            background-color: #003666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مكتبة نماذج المختبر الرسمية - سبت العلاية</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="section-box">
+            <h2 class="section-title">📑 سجلات الجودة والعمليات اليومية</h2>
+            <div class="cards-grid">
+                <div class="form-card">
+                    <div class="form-title">سجل درجات الحرارة والرطوبة (كل 8 ساعات)</div>
+                    <a href="forms/temp_log.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل ضبط الجودة اليومي (QC)</div>
+                    <a href="forms/qc_log.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل التنظيف والتعقيم</div>
+                    <a href="forms/disinfection.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل صيانة ومعايرة جهاز</div>
+                    <a href="forms/maintenance.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل استلام الكاشفات والمستلزمات</div>
+                    <a href="forms/reagents.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل إرسال العينات للمختبر المرجعي</div>
+                    <a href="forms/referral.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل استلام العينات</div>
+                    <a href="forms/specimen_receiving.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل فتح الكواشف والمحاليل</div>
+                    <a href="forms/reagent_opening.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل معايرة وفحص الأدوات المساعدة</div>
+                    <a href="forms/aux_calibration.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل حفظ العينات والتخلص منها</div>
+                    <a href="forms/specimen_retention.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل توقف النظام والكهرباء</div>
+                    <a href="forms/downtime.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">بطاقة صنف / مخزون</div>
+                    <a href="forms/stock_card.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="section-title">⚠️ الحوادث والتقارير المخبرية</h2>
+            <div class="cards-grid">
+                <div class="form-card">
+                    <div class="form-title">نموذج الإبلاغ عن حادثة / حدث غير مرغوب</div>
+                    <a href="forms/incident.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج الإبلاغ عن تعرض (وخز إبرة / ملامسة)</div>
+                    <a href="forms/exposure.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">بلاغ عطل جهاز طبي</div>
+                    <a href="forms/equipment_fail.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج رفض عينة</div>
+                    <a href="forms/rejection.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل النتائج الحرجة</div>
+                    <a href="forms/critical.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج الإجراء التصحيحي والوقائي (CAPA)</div>
+                    <a href="forms/capa.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج شكوى / ملاحظة من القسم الطالب</div>
+                    <a href="forms/complaint.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل تعديل النتائج المصدرة</div>
+                    <a href="forms/amended_report.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">بطاقة جهاز خارج الخدمة</div>
+                    <a href="forms/out_of_service.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="section-title">📊 الجودة والاعتماد (CBAHI / SFDA / التجمع)</h2>
+            <div class="cards-grid">
+                <div class="form-card">
+                    <div class="form-title">سجل اختبارات الكفاءة الخارجية (PT / EQA)</div>
+                    <a href="forms/pt_eqa.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">التحقق من دفعة كاشف جديدة</div>
+                    <a href="forms/lot_verification.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج التحقق من طريقة فحص جديدة</div>
+                    <a href="forms/method_verification.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">مراجعة ضبط الجودة الشهرية</div>
+                    <a href="forms/qc_review.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج مؤشرات الجودة الشهرية</div>
+                    <a href="forms/quality_indicators.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">قائمة التدقيق الداخلي وجاهزية الاعتماد</div>
+                    <a href="forms/audit_checklist.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">قائمة الأجهزة والمعدات</div>
+                    <a href="forms/equipment_register.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="section-title">🛡️ السلامة والبيئة</h2>
+            <div class="cards-grid">
+                <div class="form-card">
+                    <div class="form-title">قائمة الفحص الأسبوعي لمعدات السلامة</div>
+                    <a href="forms/safety_check.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل النفايات الطبية الخطرة</div>
+                    <a href="forms/biohazard_waste.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل المواد الكيميائية الخطرة</div>
+                    <a href="forms/chemical_inventory.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="section-title">🩸 بنك الدم</h2>
+            <div class="cards-grid">
+                <div class="form-card">
+                    <div class="form-title">سجل استلام وفحص وحدات الدم</div>
+                    <a href="forms/blood_receiving.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل صرف الدم ومشتقاته</div>
+                    <a href="forms/blood_issue.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج الإبلاغ عن تفاعل نقل الدم</div>
+                    <a href="forms/transfusion_reaction.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">فحص جودة كواشف بنك الدم اليومي</div>
+                    <a href="forms/bb_qc.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="section-title">📋 الإدارة والموظفين</h2>
+            <div class="cards-grid">
+                <div class="form-card">
+                    <div class="form-title">نموذج تسليم واستلام الوردية</div>
+                    <a href="forms/shift.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">طلب كاشفات / مستلزمات مختبرية</div>
+                    <a href="forms/request.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">نموذج تقييم الكفاءة الفنية للموظف</div>
+                    <a href="forms/competency.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل التدريب والحضور</div>
+                    <a href="forms/training.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل اطلاع الموظفين على السياسات والإجراءات</div>
+                    <a href="forms/sop_ack.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">قائمة تهيئة موظف جديد</div>
+                    <a href="forms/orientation.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">سجل التعليم والتدريب المستمر للموظف</div>
+                    <a href="forms/ce_record.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+                <div class="form-card">
+                    <div class="form-title">محضر اجتماع قسم المختبر</div>
+                    <a href="forms/meeting_minutes.pdf" target="_blank" class="btn">👁️ عرض / طباعة</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
